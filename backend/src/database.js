@@ -1,5 +1,4 @@
-import postgres from "postgres";
-import 'dotenv/config'
+import postgres from 'postgres'
 
 const sql = postgres({
     user: process.env.DB_USERNAME,
@@ -12,5 +11,4 @@ const sql = postgres({
     connect_timeout: 2000
 })
 
-const test = await sql `SELECT * FROM users`
-console.log(test)
+export default sql

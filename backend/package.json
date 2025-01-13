@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend REST API for Muscleflow project",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/progrez/MuscleFlow.git"
+  },
+  "author": "Kristof",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/progrez/MuscleFlow/issues"
+  },
+  "homepage": "https://github.com/progrez/MuscleFlow#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "postgres": "^3.4.5"
+  }
+}
