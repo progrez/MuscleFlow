@@ -88,7 +88,7 @@ const LoginForm = () => {
         <form onSubmit={handleSubmit}>            
             <Input label="Email" type="email" name="email" value={formData.email} onChange={handleChange} error={errors.email}/>
             <Input label="Password" type="password" name="password" value={formData.password} onChange={handleChange} error={errors.password}/>            
-            <Button type="submit" lable="Log in"/>
+            <Button type="submit" label="Log in"/>
         </form>
     )
 }
