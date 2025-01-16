@@ -110,17 +110,49 @@ const RegistrationForm = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if(validateForm()){
-            // Here you would typically send the data to your server
-            console.log('Form data to be submitted:', formData);
-            clearForm();
+        if(validateForm()){            
+            try {
+                const response = await fetch('https://muscleflow-1e736c0d1613.herokuapp.com/api/register', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json', // Inform server data format
+                  },
+                  body: {
+                    "email": "example@example.com",
+                    "password": "password123",
+                    "username": "john_doe",
+                    "date_of_birth": "1990-01-01",
+                    "weight": 70,
+                    "height": 175,
+                    "gender": "male"
+                    }                   
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Registration successful:', result);                    
+                    setFormData({
+                        username: '',
+                        email: '',
+                        password: '',
+                        confirmedPassword: '',
+                        gender: '',
+                        weight: '',
+                        height: '',
+                        data_of_birth: '',
+                    });
+                } else {
+                const error = await response.json();
+                console.error('Error during registration:', error);                
+                }
+            } catch (error) {
+                console.error('Network error:', error);                
+            }
         } else {
             console.log(errors)
-        }
-        
-        
+        }               
     }
     
 
