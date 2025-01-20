@@ -1,17 +1,25 @@
 import React, {useState} from "react";
 import Input from "./ui/Input";
 import Button from "./ui/Button";
+import auth from "../utils/auth";
+
+const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 const LoginForm = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-      });
 
-    const [errors, setErrors] = useState({
+    const INITIAL_FORM_STATE = {
         email: '',
         password: ''
-    });
+    }
+
+    const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+
+    const [errors, setErrors] = useState({});
+
+    const resetForm = () => {
+        setFormData(INITIAL_FORM_STATE);
+        setErrors({});
+    };
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -74,14 +82,36 @@ const LoginForm = () => {
         return !newErrors.email && !newErrors.password;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {            
-            console.log('Form submitted:', formData);
-            // API call
-        }
+            try{
+                const response = await fetch (`${backendURL}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',                    
+                        'Authorization': `Bearer ${auth.getToken()}`
+                    },
+                    body: JSON.stringify({
+                        email: formData.email,
+                        password: formData.password
+                    })
+                })
 
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('User details updated successfully:', result);
+                    resetForm();
+                }
+
+            } catch(error) {
+                console.error('Network error:', error);                
+            }
+        }
+    else {
+            console.log('User info is not valid')
+        }
     }
 
     return (

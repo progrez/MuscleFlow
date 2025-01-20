@@ -1,8 +1,14 @@
 import React from 'react';
 
-const Button = ({type, label}) => {
+const Button = (props) => {
     return(
-        <button type={type}>{label}</button>
+        <div className="mt-6">
+            <button 
+                type={props.type}
+                className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-neutraLight shadow-sm hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-focus"
+            >{props.label}</button>
+        </div>
+
     )
 }
 
