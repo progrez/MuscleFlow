@@ -1,23 +1,60 @@
 const IconButton = (props) => {
-
-  const sizeClasses = {
-    sm: 'w-4 h-4',     // Small: 16px
-    md: 'w-6 h-6',     // Medium: 24px
-    lg: 'w-8 h-8',     // Large: 32px
-    xl: 'w-10 h-10'    // Extra Large: 40px
+  // Create a size configuration object that contains all size-related styles
+  const sizeConfig = {
+    sm: {
+      icon: 'w-4 h-4',
+      button: 'p-1.5'
+    },
+    md: {
+      icon: 'w-6 h-6',
+      button: 'p-2'
+    },
+    lg: {
+      icon: 'w-8 h-8',
+      button: 'p-2.5'
+    },
+    xl: {
+      icon: 'w-10 h-10',
+      button: 'p-3'
+    }
   };
+
+  // Set default values by creating a config object that combines defaults with provided props
+  const config = {
+    icon: {
+      path: props.icon?.path || '',
+      size: props.icon?.size || 'md',
+      color: props.icon?.color || 'currentColor'
+    },
+    button: {
+      onClick: props.button?.onClick || (() => {}),
+      className: props.button?.className || ''
+    }
+  };
+
+  // Get the size configuration based on the icon size
+  const currentSize = sizeConfig[config.icon.size];
 
   return (
     <button
-      onClick={props.onClick}
-      className={`p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200`}
+      onClick={config.button.onClick}
+      className={`
+        ${currentSize.button}
+        p-2
+        rounded-full 
+        hover:bg-neutralDark-secondary
+        focus:outline-none 
+        focus:ring-2 
+        focus:bg-neutralDark-secondary
+        ${config.button.className}
+      `}
     >
       <svg 
-        viewBox="0 0 24 24"        
-        fill={props.color}
-        className={sizeClasses[size]}
+        viewBox="0 0 24 24"
+        fill={config.icon.color}
+        className={currentSize.icon}
       >
-        <path d={props.svgPath} />
+        <path d={config.icon.path} />
       </svg>
     </button>
   );

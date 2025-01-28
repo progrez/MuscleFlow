@@ -102,8 +102,8 @@ const LoginForm = () => {
                 })
 
                 if (response.ok) {
-                    const result = await response.json();
-                    console.log('User details updated successfully:', result);
+                    const result = await response.json();                                        
+                    auth.storeToken(result.token)                                        
                     resetForm();
                     navigate('/dashboard'); 
                 }

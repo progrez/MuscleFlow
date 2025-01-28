@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import auth from "../utils/auth";
-import Workout from "../components/Workout"
+import WorkoutCard from "../components/WorkoutCard"
+import Header from '../components/ui/Header';
+import CardCarousel from '../components/CardCarousel';
 
 const backendURL = import.meta.env.VITE_BACKEND_URL;
 
@@ -13,6 +15,15 @@ const DashBoardScreen = () => {
 
     // State to handle error
     const [error, setError] = useState(null);
+
+
+    console.log(data.)
+    // const cards = [
+    //     <WorkoutCard title='Workout name'/>,
+    //     <WorkoutCard title='Workout name'/>,
+    //     <WorkoutCard title='Workout name'/>,
+    //     <WorkoutCard title='Workout name'/>,
+    // ]
 
     // Fetch data when the component mounts
     useEffect(() => {
@@ -52,7 +63,11 @@ const DashBoardScreen = () => {
 
 
     return(
-        <Workout title='Workout name'/>
+        <div className='min-h-screen px-0 flex flex-col bg-neutralDark text-neutraLight'>
+            <Header />
+            <CardCarousel cards={cards}/>
+        </div>
+        
     )
 }
 
