@@ -14,7 +14,7 @@ export default {
           hover: "#4A3E3E",   // Slightly lighter for hover effects
         },
         neutralDark: {
-          primary: "#211B1B", // Main background
+          DEFAULT: "#211B1B", // Main background
           secondary: "#362F2F",   // Slightly lighter variant
         },
         neutraLight: {

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "./ui/Input";
 import Button from "./ui/Button";
 import auth from "../utils/auth";
@@ -6,6 +7,7 @@ import auth from "../utils/auth";
 const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 const LoginForm = () => {
+    const navigate = useNavigate()
 
     const INITIAL_FORM_STATE = {
         email: '',
@@ -103,6 +105,7 @@ const LoginForm = () => {
                     const result = await response.json();
                     console.log('User details updated successfully:', result);
                     resetForm();
+                    navigate('/dashboard'); 
                 }
 
             } catch(error) {
@@ -115,11 +118,13 @@ const LoginForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>            
-            <Input label="Email" type="email" name="email" value={formData.email} onChange={handleChange} error={errors.email}/>
-            <Input label="Password" type="password" name="password" value={formData.password} onChange={handleChange} error={errors.password}/>            
-            <Button type="submit" label="Log in"/>
-        </form>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form onSubmit={handleSubmit}>            
+                <Input label="Email" type="email" name="email" value={formData.email} onChange={handleChange} error={errors.email}/>
+                <Input label="Password" type="password" name="password" value={formData.password} onChange={handleChange} error={errors.password}/>            
+                <Button type="submit" label="Log in"/>
+            </form>
+        </div>
     )
 }
 
