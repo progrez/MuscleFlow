@@ -17,13 +17,12 @@ const DashBoardScreen = () => {
     const [error, setError] = useState(null);
 
 
-    console.log(data.)
-    // const cards = [
-    //     <WorkoutCard title='Workout name'/>,
-    //     <WorkoutCard title='Workout name'/>,
-    //     <WorkoutCard title='Workout name'/>,
-    //     <WorkoutCard title='Workout name'/>,
-    // ]
+    const cards = [
+        <WorkoutCard title='Workout name'/>,
+        <WorkoutCard title='Workout name'/>,
+        <WorkoutCard title='Workout name'/>,
+        <WorkoutCard title='Workout name'/>,
+    ]
 
     // Fetch data when the component mounts
     useEffect(() => {
