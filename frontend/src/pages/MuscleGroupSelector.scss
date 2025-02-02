@@ -1,0 +1,95 @@
+@use "sass:string";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+
+$black: #333;
+$white: #eee;
+$color-1: #aa2b33;
+$label-z: 200;
+$svg-z: 100;
+
+.muscle-groups {
+  height: 100%;
+  width: 320px;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; // Adjust as needed
+    width: 100%;
+  
+  
+
+
+
+    margin: auto;
+  
+  overflow: hidden;
+
+  input:checked + label {
+    opacity: 1;
+    font-weight: bold;
+    color: $color-1;
+  }
+
+  h2 {
+    color: $white;
+    text-align: center;
+  }
+
+  svg {
+    height: 350px;
+  }
+
+  svg g[id] path {
+    fill: $color-1;
+    transition: opacity .25s ease-in-out;
+  }
+
+  svg g g[id]:hover path {
+    cursor: pointer;
+    opacity: .5;
+    fill: $color-1 !important;
+  }
+
+  .muscles-helper {
+    display: none;
+  }
+
+  $groups: obliques, abs, quads, biceps, adductors, pectorals, deltoids, hamstrings, quads, forearms, calves, triceps, glutes, lats, trapezius;
+
+  @each $muscle in $groups {
+    $upper: string.to-upper-case(string.slice($muscle, 1, 1)) + string.slice($muscle, 2);
+    label[for="#{$muscle}"]:hover ~ svg ##{$upper} path {
+      opacity: .75;
+    }
+    .#{$muscle}:checked ~ svg ##{$upper} path {
+      opacity: .8;
+      fill: $color-1 !important;
+    }
+  }
+}
+
+html {
+  background: #333;
+  background: linear-gradient(25deg, #111, #555);
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+
+
+.muscle-groups svg {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}

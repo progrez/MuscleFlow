@@ -3,12 +3,14 @@ import LoginScreen from './pages/LoginScreen'
 import RegistrationScreen from './pages/RegistrationScreen'
 import DashBoardScreen from './pages/DashBoardScreen'
 import CreateWorkoutScreen from './pages/CreateWorkoutScreen';
+import MuscleGroupSelector from './pages/MuscleGroupSelector';
 
 function App() {
 
   return (
     <Router>
       <Routes>
+        <Route path='/' element={<MuscleGroupSelector />}/>
         <Route path='/login' element={<LoginScreen />}/>
         <Route path='/register' element={<RegistrationScreen />}/>
         <Route path='/dashboard' element={<DashBoardScreen />}/>        
