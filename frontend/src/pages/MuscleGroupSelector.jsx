@@ -1,42 +1,68 @@
 // src/MuscleGroupSelector.jsx
 import React from 'react';
 import './MuscleGroupSelector.scss'; // Ensure this path is correct
+import Header from '../components/ui/Header';
 
-const MuscleGroupSelector = () => {
+
+const MuscleGroupSelector = ({ onMuscleGroupClick }) => {
   React.useEffect(() => {
+    const muscleGroups = {
+      trapezius: 'traps',
+      lats: 'lats',
+      triceps: 'triceps',
+      forearms: 'forearms',
+      glutes: 'glutes',
+      hamstrings: 'hamstrings',
+      calves: 'calves',
+      deltoids: 'shoulders',
+      biceps: 'biceps',
+      pectorals: 'chest',
+      obliques: 'obliques',
+      abs: 'abdominals',
+      quads: 'quadriceps',
+      adductors: 'adductors',
+      back: 'lower back'
+    };
+
     document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function(group) {
       // For the hover
       group.addEventListener('mouseover', function(el) {
-        let id = el.path[1].id.toLowerCase();
-        if (!id) id = el.path[2].id.toLowerCase();
-        let label = document.querySelectorAll("label[for=" + id + "]")[0];
-        if (label.classList) label.classList.add("hover");
-        else label.className += ' ' + "hover";
+        let id = el.target.id || el.target.parentElement.id;
+        if (id) {
+          let label = document.querySelector(`label[for="${id.toLowerCase()}"]`);
+          if (label) {
+            label.classList.add("hover");
+          }
+        }
       });
       group.addEventListener('mouseout', function(el) {
-        let id = el.path[1].id.toLowerCase();
-        if (!id) id = el.path[2].id.toLowerCase();
-        let label = document.querySelectorAll("label[for=" + id + "]")[0];
-        let clss = "hover";
-        if (label.classList) label.classList.remove(clss);
-        else label.className = label.className.replace(new RegExp('(^|\\b)' + clss.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        let id = el.target.id || el.target.parentElement.id;
+        if (id) {
+          let label = document.querySelector(`label[for="${id.toLowerCase()}"]`);
+          if (label) {
+            label.classList.remove("hover");
+          }
+        }
       });
       // For the click
       group.addEventListener('click', function(el) {
-        let id = el.path[1].id.toLowerCase();
-        if (!id) id = el.path[2].id.toLowerCase();
-        let input = document.getElementById(id);
-        input.checked = !input.checked;
+        let id = el.target.id || el.target.parentElement.id;
+        console.log(id)
+        if (id) {
+          id = id.toLowerCase();
+          if (muscleGroups[id]) {
+            onMuscleGroupClick(muscleGroups[id]); // Trigger the click handler with the appropriate muscle group
+          }
+        }
       });
     });
-  }, []);
+  }, [onMuscleGroupClick]);
 
   return (
     
     <>
-
+    <Header />
       <div className="muscle-groups">
-
         <svg
           width="100%"
           height="100%"
