@@ -5,8 +5,14 @@ import DashBoardScreen from './pages/DashBoardScreen'
 import CreateWorkoutScreen from './pages/CreateWorkoutScreen';
 import MuscleGroupSelector from './pages/MuscleGroupSelector';
 import HomePage from './pages/HomePage';
+import ReactModal from 'react-modal';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    ReactModal.setAppElement('#root'); 
+  }, []);
 
   return (
     <Router>

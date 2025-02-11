@@ -1,66 +1,70 @@
-import auth from "../utils/auth"
-import Button from "./ui/Button"
-import Input from "./ui/Input"
+import React, { useState } from "react";
+import auth from "../utils/auth";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
+import ReactModal from "react-modal";
 
 const backendURL = import.meta.env.VITE_BACKEND_URL;
 
-const CreateWorkoutForm = () => {
+const CreateWorkoutForm = ({ onWorkoutCreated }) => {
+  const [workoutName, setWorkoutName] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
-    
+  const handleOpenFormModal = () => {
+    setIsOpen(true);
+  };
 
-    const handleSubmit = async (formData) => {
-        const workoutName = formData.get('workout_name')
-        const workout = {
-            workout_name: workoutName,
-            exercises: [
-                {
-                    name: 'Push-up',
-                    weight: 0,
-                    sets: 10,
-                    repetitions: 2,
-                    rest_time: 5
-                }
-            ]
-        }
-        
-        try {        
-            const userId = auth.getUserId();
-            const response = await fetch(`${backendURL}/api/user/${userId}/workout`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',                    
-                    'Authorization': `Bearer ${auth.getToken()}`
-                },
-                body: JSON.stringify(workout)
-            });
+  const handleCloseFormModal = () => {
+    setIsOpen(false);
+  };
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Workout created successfully:', result);                
-            }
-        }
-        catch (error) {
-            console.error('Network error while creating new workout:', error);
-            
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        
+    const workout = { name: workoutName, exercises: [] };
+
+    try {
+      const userId = auth.getUserId();
+      const response = await fetch(`${backendURL}/api/user/${userId}/workouts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.getToken()}`,
+        },
+        body: JSON.stringify(workout),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Workout created:", result);
+        onWorkoutCreated(result);
+        handleCloseFormModal(); 
+      }
+    } catch (error) {
+      console.error("Network error while creating workout:", error);
     }
+  };
 
-    return (
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action={handleSubmit}>
-                <Input 
-                    label="Workout Name"
-                    type="text"
-                    name="workout_name"                    
-                    required={true}                 
-                />
-                <Button label="Create Workout"/>
-            </form>
+  return (
+    <>
+      <Button label="Create new workout" onClick={handleOpenFormModal} className="w-auto m-auto"/>
+      <ReactModal isOpen={isOpen} onRequestClose={handleCloseFormModal} className="bg-neutralDark-secondary text-neutraLight p-6 rounded-lg shadow-lg max-w-md mx-auto">
+      
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Workout Name"
+            type="text"
+            name="workout_name"
+            value={workoutName}
+            onChange={(e) => setWorkoutName(e.target.value)}
+            required
+          />
+          <Button label="Create Workout" className="w-auto m-auto"/>
+        </form>
+        <Button label="X" onClick={handleCloseFormModal} className="w-auto m-auto"/>
+      </ReactModal>
+    </>
+  );
+};
 
-        </div>
-    )
-}
-
-export default CreateWorkoutForm
+export default CreateWorkoutForm;
