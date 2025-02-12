@@ -43,10 +43,10 @@ const WorkoutCard = ({ workout, onEdit, onDelete }) => {
 				{workout.exercises?.map((exercise, index) => (
 					<div key={index} className="badge">
 						{exercise.name}
-					</div> 
+					</div>
 				))}
 			</p>
-			<Button label="Train" />
+			<Button label="Train" className="w-full" />
 		</a>
 	);
 };

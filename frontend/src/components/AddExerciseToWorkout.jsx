@@ -82,7 +82,11 @@ const AddExerciseToWorkout = ({ exercise }) => {
 
 	return (
 		<>
-			<Button label="Add to workout" onClick={openModal} className="w-auto m-auto"/>
+			<Button
+				label="Add to workout"
+				onClick={openModal}
+				className="w-auto m-auto"
+			/>
 			<ReactModal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
@@ -143,8 +147,12 @@ const AddExerciseToWorkout = ({ exercise }) => {
 					/>
 				</div>
 
-				<Button label="Add Exercise" onClick={handleAddExerciseToWorkout} className="w-auto m-auto"/>
-				<Button label="Close" onClick={closeModal} className="w-auto m-auto"/>
+				<Button
+					label="Add Exercise"
+					onClick={handleAddExerciseToWorkout}
+					className="w-auto m-auto"
+				/>
+				<Button label="Close" onClick={closeModal} className="w-auto m-auto" />
 			</ReactModal>
 		</>
 	);

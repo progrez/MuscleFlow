@@ -85,7 +85,7 @@ const DashBoardScreen = () => {
 			/>
 			<CreateWorkoutForm />
 			<header className="flex justify-between">
-				<h5 className="p-3 mb-3 text-xl font-bold tracking-tight text-neutraLight dark:text-white">
+				<h5 className="p-3 mb-3 text-xl font-bold tracking-tight text-neutraLight dark:text-white ml-[20px]">
 					Your details: 
 				</h5>
 			</header>
